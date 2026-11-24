@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PawCare - Pet Adoption System</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       PAWCARE PORTAL STYLESHEET
+       ========================================================================== */
+    :root {
+      --primary-color: #2e7d32;
+      --primary-dark: #1b5e20;
+      --primary-light: #159d21;
+      --accent-orange: #ff7043;
+      --accent-dark: #e64a19;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --card-radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-page);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6, .brand-font {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+    }
+
+    /* Auth Screen (Login Comes First) */
+    .auth-screen-wrapper {
+      background: radial-gradient(circle at 10% 20%, #e8f5e9 0%, #f1f5f9 60%, #e2e8f0 100%);
+      min-height: 100vh;
+    }
+    .auth-main-card {
+      box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.25);
+      background: #ffffff;
+    }
+    .auth-brand-side {
+      background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #15803d 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-brand-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+    .auth-logo-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.2);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #ffc107; backdrop-filter: blur(8px);
+    }
+
+    /* Desktop Top Bar & Navbar */
+    .desktop-top-bar {
+      font-size: 0.82rem;
+      background: #0f172a;
+      color: #94a3b8;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .custom-navbar {
+      background-color: #ffffff !important;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0.75rem 0;
+    }
+    .brand-icon-wrapper {
+      width: 42px; height: 42px;
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    /* Buttons */
+    .btn-primary-green {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .btn-primary-green:hover {
+      background-color: var(--primary-dark);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    .btn-accent-orange {
+      background-color: var(--accent-orange);
+      color: #ffffff;
+      border: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .btn-accent-orange:hover {
+      background-color: var(--accent-dark);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    .btn-outline-green {
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      background-color: transparent;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .btn-outline-green:hover {
+      background-color: var(--primary-color);
+      color: #ffffff;
+    }
+
+    /* Hero */
+    .hero-section {
+      background: radial-gradient(circle at 10% 20%, #f0fdf4 0%, #ffffff 80%);
+      padding: 4.5rem 0 3.5rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .hero-image-wrapper {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15);
+      border: 4px solid #ffffff;
+    }
+
+    /* Pet Cards */
+    .pet-card {
+      background: #ffffff;
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .pet-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      border-color: #cbd5e1;
+    }
+    .pet-img-container {
+      position: relative;
+      width: 100%;
+      height: 230px;
+      overflow: hidden;
+      background-color: #e2e8f0;
+    }
+    .pet-card-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .pet-card:hover .pet-card-img { transform: scale(1.05); }
+    .pet-status-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+    .status-available { background-color: #10b981; color: #ffffff; }
+    .status-pending { background-color: #f59e0b; color: #ffffff; }
+    .status-adopted { background-color: #64748b; color: #ffffff; }
+    .pet-favorite-btn {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 36px; height: 36px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #94a3b8; cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .pet-favorite-btn.favorited { color: #ef4444; }
+    .pet-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin: 0.85rem 0;
+      padding: 0.75rem;
+      background-color: #f8fafc;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    /* Steps */
+    .step-card {
+      background: #ffffff;
+      padding: 2.2rem 1.6rem;
+      border-radius: var(--card-radius);
+      border: 1px solid #e2e8f0;
+      text-align: center;
+      height: 100%;
+      transition: transform 0.2s ease;
+    }
+    .step-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+    .step-number {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary-color);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; font-weight: 800;
+      margin: 0 auto 1.2rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #0f172a;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       1. LOGIN / REGISTRATION PAGE (COMES FIRST)
+       ========================================== -->
+  <section id="authScreen" class="auth-screen-wrapper min-vh-100 d-flex align-items-center justify-content-center py-5">
+    <div class="container" style="max-width: 1080px;">
+      <div class="card auth-main-card border-0 shadow-2xl rounded-5 overflow-hidden">
+        <div class="row g-0">
+          
+          <!-- Left Banner (Branding & Credentials) -->
+          <div class="col-lg-6 auth-brand-side text-white p-4 p-md-5 d-flex flex-column justify-content-between position-relative">
+            <div class="auth-brand-overlay"></div>
+            
+            <div class="position-relative z-1">
+              <div class="d-flex align-items-center gap-3 mb-4">
+                <span class="auth-logo-icon">
+                  <i class="fa-solid fa-paw fs-4"></i>
+                </span>
+                <div>
+                  <h3 class="fw-extrabold mb-0 text-white brand-font">Paw<span class="text-warning">Care</span></h3>
+                  <small class="text-white-50 text-uppercase tracking-wider" style="font-size:0.75rem;">Pet Adoption System</small>
+                </div>
+              </div>
+
+              <div class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill mb-3">
+                <i class="fa-solid fa-heart me-1"></i> Academic Project Prototype
+              </div>
+
+              <h2 class="display-6 fw-bold mb-3">Give a Pet a Home, Give a Home a Friend</h2>
+              <p class="text-white-80 lead fs-6 mb-4">
+                Welcome to PawCare. Our sanctuary in Vijayawada connects rescued dogs, cats, and rabbits with loving families. Please sign in or register to browse pets, submit adoption applications, and access the portal.
+              </p>
+
+              <div class="d-flex flex-column gap-3 mb-4">
+                <div class="d-flex align-items-center gap-3 bg-white bg-opacity-10 p-2 px-3 rounded-4 backdrop-blur border border-white border-opacity-15">
+                  <i class="fa-solid fa-shield-virus text-warning fs-4"></i>
+                  <div>
+                    <h6 class="mb-0 fw-bold">100% Medically Screened & Vaccinated</h6>
+                    <small class="text-white-75">Every animal is sterilized, dewormed, and vet-certified.</small>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center gap-3 bg-white bg-opacity-10 p-2 px-3 rounded-4 backdrop-blur border border-white border-opacity-15">
+                  <i class="fa-solid fa-hand-holding-heart text-warning fs-4"></i>
+                  <div>
+                    <h6 class="mb-0 fw-bold">Zero Adoption Charges</h6>
+                    <small class="text-white-75">Ethical non-profit rescue committed to stopping commercial puppy mills.</small>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center gap-3 bg-white bg-opacity-10 p-2 px-3 rounded-4 backdrop-blur border border-white border-opacity-15">
+                  <i class="fa-solid fa-house-chimney-heart text-warning fs-4"></i>
+                  <div>
+                    <h6 class="mb-0 fw-bold">850+ Successful Adoptions</h6>
+                    <small class="text-white-75">Sanctuary near Benz Circle, MG Road, Vijayawada, AP.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="position-relative z-1 pt-3 border-top border-white border-opacity-20 d-flex justify-content-between align-items-center small text-white-50">
+              <span><i class="fa-solid fa-location-dot me-1 text-warning"></i> Vijayawada, AP</span>
+              <span><i class="fa-solid fa-phone me-1 text-warning"></i> +91 98765 43210</span>
+            </div>
+          </div>
+
+          <!-- Right Form (Sign In & Register Tabs) -->
+          <div class="col-lg-6 bg-white p-4 p-md-5 d-flex flex-column justify-content-center">
+            
+            <div class="text-center mb-4">
+              <h3 class="fw-bold text-dark mb-1">Access PawCare</h3>
+              <p class="text-muted small">Sign in or register to continue to the pet adoption portal</p>
+            </div>
+
+            <ul class="nav nav-pills nav-fill mb-4 bg-light p-1 rounded-pill" id="authTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active rounded-pill fw-bold" id="tabLoginBtn" data-bs-toggle="pill" data-bs-target="#tabLogin" type="button" role="tab">
+                  <i class="fa-solid fa-right-to-bracket me-1"></i> Sign In
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill fw-bold" id="tabRegisterBtn" data-bs-toggle="pill" data-bs-target="#tabRegister" type="button" role="tab">
+                  <i class="fa-solid fa-user-plus me-1"></i> Register
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="authTabContent">
+              
+              <!-- TAB 1: LOGIN -->
+              <div class="tab-pane fade show active" id="tabLogin" role="tabpanel">
+                <form id="screenLoginForm" onsubmit="handleMainLoginSubmit(event)" novalidate>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold small text-secondary">Email Address</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-envelope text-muted"></i></span>
+                      <input type="email" class="form-control border-start-0" id="mainLoginEmail" placeholder="e.g. adopter@gmail.com" required>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold small text-secondary">Password</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                      <input type="password" class="form-control border-start-0" id="mainLoginPassword" placeholder="Enter your password" required minlength="4">
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+                      <label class="form-check-label small text-muted" for="rememberMe">Remember me</label>
+                    </div>
+                    <span class="badge bg-light text-muted border px-2 py-1 small">Prototype Auth</span>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary-green w-100 rounded-pill py-3 fw-bold fs-6 shadow-sm mb-3">
+                    <i class="fa-solid fa-arrow-right-to-bracket me-2"></i> Sign In & Enter Website
+                  </button>
+                </form>
+
+                <!-- 1-Click Evaluation Login Strip -->
+                <div class="p-3 bg-light rounded-4 mb-3 border">
+                  <span class="d-block text-muted small fw-bold text-uppercase mb-2 text-center">
+                    <i class="fa-solid fa-wand-magic-sparkles text-success me-1"></i> Quick 1-Click Evaluation Logins
+                  </span>
+                  <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-success btn-sm rounded-pill fw-semibold py-2" onclick="demoLoginUser()">
+                      <i class="fa-solid fa-user me-1"></i> Demo Login as <strong>Adopter (Rahul Sharma)</strong>
+                    </button>
+                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill fw-semibold py-2" onclick="demoLoginAdmin()">
+                      <i class="fa-solid fa-shield-halved me-1 text-warning"></i> Demo Login as <strong>Sanctuary Admin</strong>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button type="button" class="btn btn-link text-muted small text-decoration-none" onclick="continueAsGuest()">
+                    <i class="fa-solid fa-compass me-1"></i> Or Continue as Guest (Browse without login) →
+                  </button>
+                </div>
+              </div>
+
+              <!-- TAB 2: REGISTER -->
+              <div class="tab-pane fade" id="tabRegister" role="tabpanel">
+                <form id="screenRegisterForm" onsubmit="handleMainRegisterSubmit(event)" novalidate>
+                  <div class="mb-2">
+                    <label class="form-label fw-semibold small text-secondary">Full Name *</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-user text-muted"></i></span>
+                      <input type="text" class="form-control border-start-0" id="mainRegName" placeholder="e.g. Priya Varma" required minlength="3">
+                    </div>
+                  </div>
+
+                  <div class="mb-2">
+                    <label class="form-label fw-semibold small text-secondary">Email Address *</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-envelope text-muted"></i></span>
+                      <input type="email" class="form-control border-start-0" id="mainRegEmail" placeholder="name@example.com" required>
+                    </div>
+                  </div>
+
+                  <div class="mb-2">
+                    <label class="form-label fw-semibold small text-secondary">Phone Number *</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-phone text-muted"></i></span>
+                      <input type="tel" class="form-control border-start-0" id="mainRegPhone" placeholder="10-digit mobile number" required pattern="[0-9]{10}">
+                    </div>
+                  </div>
+
+                  <div class="row g-2 mb-3">
+                    <div class="col-6">
+                      <label class="form-label fw-semibold small text-secondary">Password *</label>
+                      <input type="password" class="form-control" id="mainRegPass" placeholder="Min 6 chars" required minlength="6">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label fw-semibold small text-secondary">Confirm Pass *</label>
+                      <input type="password" class="form-control" id="mainRegConfirmPass" placeholder="Re-type pass" required>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary-green w-100 rounded-pill py-3 fw-bold fs-6 shadow-sm mb-3">
+                    <i class="fa-solid fa-user-plus me-2"></i> Create Account & Enter
+                  </button>
+
+                  <div class="text-center">
+                    <button type="button" class="btn btn-link text-muted small text-decoration-none" onclick="document.getElementById('tabLoginBtn').click()">
+                      Already have an account? Sign in here
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       2. MAIN WEBSITE PORTAL (UNLOCKED AFTER LOGIN)
+       ========================================== -->
+  <div id="mainAppScreen" class="d-none">
+
+    <!-- Top Utility Bar -->
+    <aside class="desktop-top-bar d-none d-lg-block py-1">
+      <div class="container-xxl d-flex justify-content-between align-items-center small">
+        <div class="d-flex align-items-center gap-4">
+          <span><i class="fa-solid fa-location-dot text-success me-1"></i> Near Benz Circle, MG Road, Vijayawada, AP</span>
+          <span><i class="fa-solid fa-clock text-warning me-1"></i> Visiting Hours: Mon - Sat 9:00 AM – 7:00 PM</span>
+          <span><i class="fa-solid fa-phone text-success me-1"></i> Helpline: +91 98765 43210</span>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25 px-2 py-1">
+            <i class="fa-solid fa-circle-check me-1"></i> 100% Ethical & Medical Screened
+          </span>
+          <a href="#adminSection" class="text-white text-decoration-none" onclick="toggleAdminView(true)">
+            <i class="fa-solid fa-lock me-1"></i> Staff Portal
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Navigation Bar -->
+    <header class="navbar navbar-expand-lg navbar-light sticky-top shadow-sm custom-navbar" id="mainNav">
+      <div class="container-xxl">
+        <a class="navbar-brand d-flex align-items-center" href="#home">
+          <span class="brand-icon-wrapper me-2">
+            <i class="fa-solid fa-paw"></i>
+          </span>
+          <span class="brand-font fs-3 text-dark">Paw<span style="color:var(--accent-orange)">Care</span></span>
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+          <i class="fa-solid fa-bars text-success fs-3"></i>
+        </button>
+
+        <nav class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-semibold">
+            <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#available-pets">Available Pets</a></li>
+            <li class="nav-item"><a class="nav-link" href="#adoption-process">Adoption Process</a></li>
+            <li class="nav-item"><a class="nav-link" href="#adoption-form-section">Adoption Form</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
+
+          <div class="d-flex align-items-center gap-2" id="navControls">
+            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" onclick="toggleAdminView()" id="adminNavBtn">
+              <i class="fa-solid fa-shield-halved me-1"></i> Admin Panel
+            </button>
+            <div id="userAuthContainer"></div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Toast Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;">
+      <div id="actionToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert">
+        <div class="d-flex">
+          <div class="toast-body d-flex align-items-center" id="toastMessage">
+            <i class="fa-solid fa-circle-check fs-5 me-2"></i> Action completed successfully!
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <div class="container-xxl">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold mb-3">
+              <i class="fa-solid fa-heart me-1"></i> Adopt, Don't Shop
+            </span>
+            <h1 class="display-3 fw-bold mb-3">
+              Give a Pet a Home,<br>Give a Home a <span style="color:var(--accent-orange)">True Friend</span>
+            </h1>
+            <p class="lead text-secondary mb-4">
+              Connect with rescued dogs, cats, and small animals across Andhra Pradesh. Every adoption rescues two lives: the pet you bring home and the next vulnerable animal we can shelter.
+            </p>
+            <div class="d-flex flex-wrap gap-3 mb-4">
+              <a href="#available-pets" class="btn btn-primary-green px-4 py-3 rounded-pill">
+                <i class="fa-solid fa-paw me-2"></i> Browse Pets
+              </a>
+              <a href="#adoption-form-section" class="btn btn-accent-orange px-4 py-3 rounded-pill">
+                <i class="fa-solid fa-heart me-2"></i> Adopt Now
+              </a>
+            </div>
+            <div class="row g-3 pt-3 border-top">
+              <div class="col-3"><h4 class="fw-bold text-success mb-0">850+</h4><small class="text-muted">Adopted</small></div>
+              <div class="col-3"><h4 class="fw-bold text-success mb-0" id="statAvailable">8</h4><small class="text-muted">Available</small></div>
+              <div class="col-3"><h4 class="fw-bold text-success mb-0">100%</h4><small class="text-muted">Vaccinated</small></div>
+              <div class="col-3"><h4 class="fw-bold text-success mb-0">Zero</h4><small class="text-muted">Fees</small></div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="hero-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80" alt="Rescued Dogs" class="img-fluid w-100">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Available Pets with Dynamic Search & Filters -->
+    <section class="py-5" id="available-pets">
+      <div class="container-xxl">
+        <div class="text-center mb-4">
+          <span class="text-success fw-bold text-uppercase small">Available Companions</span>
+          <h2 class="display-6 mt-1">Available Pets for Adoption</h2>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="card p-3 rounded-4 shadow-sm border-0 mb-4 bg-white">
+          <div class="row g-2 align-items-center">
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search by name, breed, location...">
+              </div>
+            </div>
+            <div class="col-6 col-md-2">
+              <select id="typeFilter" class="form-select">
+                <option value="">All Animals</option>
+                <option value="Dog">Dogs</option>
+                <option value="Cat">Cats</option>
+                <option value="Rabbit">Rabbits</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-2">
+              <input type="text" id="breedFilter" class="form-control" placeholder="Filter by breed">
+            </div>
+            <div class="col-6 col-md-2">
+              <select id="genderFilter" class="form-select">
+                <option value="">All Genders</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-2">
+              <button class="btn btn-outline-secondary w-100" onclick="resetFilters()">
+                <i class="fa-solid fa-rotate-left me-1"></i> Reset
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pet Cards Container -->
+        <div class="row g-4" id="availablePetsContainer"></div>
+      </div>
+    </section>
+
+    <!-- 5-Step Adoption Process -->
+    <section class="py-5 bg-white border-top border-bottom" id="adoption-process">
+      <div class="container-xxl">
+        <div class="text-center mb-5">
+          <span class="text-success fw-bold text-uppercase small">How Adoption Works</span>
+          <h2 class="display-6 mt-1">Our Simple 5-Step Process</h2>
+        </div>
+        <div class="row g-3">
+          <div class="col-md">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <h5>Browse Pets</h5>
+              <p class="small text-muted mb-0">Search online to find pets that fit your home.</p>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <h5>Select a Pet</h5>
+              <p class="small text-muted mb-0">Check medical records, vaccination, and temperament.</p>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <h5>Submit Form</h5>
+              <p class="small text-muted mb-0">Complete our simple application questionnaire.</p>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <h5>Review</h5>
+              <p class="small text-muted mb-0">Our counselors verify home compatibility.</p>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="step-card">
+              <div class="step-number">5</div>
+              <h5>Meet & Adopt</h5>
+              <p class="small text-muted mb-0">Meet your companion and take your new friend home!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Adoption Application Form -->
+    <section class="py-5" id="adoption-form-section">
+      <div class="container" style="max-width: 840px;">
+        <div class="card p-4 p-md-5 rounded-4 shadow-sm border-0 bg-white">
+          <div class="text-center mb-4">
+            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-2">Adoption Form</span>
+            <h2>Pet Adoption Application</h2>
+            <p class="text-muted">Please fill in this form accurately to begin your adoption review.</p>
+          </div>
+
+          <div id="adoptionSuccessAlert" class="alert alert-success d-none mb-4" role="alert">
+            <i class="fa-solid fa-circle-check me-2 fs-5"></i>
+            <span>Your adoption application has been submitted successfully!</span>
+          </div>
+
+          <form id="petAdoptionForm" onsubmit="handleAdoptionSubmit(event)">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Full Name *</label>
+                <input type="text" class="form-control" id="formFullName" required placeholder="e.g. Rahul Sharma">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Email *</label>
+                <input type="email" class="form-control" id="formEmail" required placeholder="name@example.com">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Phone Number *</label>
+                <input type="tel" class="form-control" id="formPhone" required placeholder="+91 98765 43210">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-semibold">Your Age *</label>
+                <input type="number" class="form-control" id="formAge" min="18" required placeholder="25">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-semibold">Occupation *</label>
+                <input type="text" class="form-control" id="formOccupation" required placeholder="Engineer">
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-semibold">Residential Address *</label>
+                <input type="text" class="form-control" id="formAddress" required placeholder="Door No, Street, City, State">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Select Pet *</label>
+                <select class="form-select" id="formPetSelect" required>
+                  <option value="">-- Choose Pet --</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Type of Residence *</label>
+                <select class="form-select" id="formResidence" required>
+                  <option value="Independent House with Garden">Independent House with Garden</option>
+                  <option value="Apartment / Flat">Apartment / Flat</option>
+                  <option value="Gated Villa">Gated Villa</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Previous Pet Experience *</label>
+                <select class="form-select" id="formExperience" required>
+                  <option value="Yes, experienced pet owner">Yes, experienced pet owner</option>
+                  <option value="First-time pet owner">First-time pet owner</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Do you currently have pets? *</label>
+                <select class="form-select" id="formCurrentPets" required>
+                  <option value="No">No</option>
+                  <option value="Yes, dogs">Yes, dogs</option>
+                  <option value="Yes, cats">Yes, cats</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-semibold">Reason for Adoption *</label>
+                <textarea class="form-control" id="formReason" rows="3" required placeholder="Why would you like to adopt this pet?"></textarea>
+              </div>
+              <div class="col-12 text-center mt-4">
+                <button type="submit" class="btn btn-primary-green px-5 py-3 rounded-pill fw-bold fs-6">
+                  <i class="fa-solid fa-paper-plane me-2"></i> Submit Application
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sanctuary Admin Dashboard (Toggleable) -->
+    <section class="py-5 bg-light d-none" id="adminSection">
+      <div class="container-xxl">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2><i class="fa-solid fa-shield-halved text-success me-2"></i> Sanctuary Admin Dashboard</h2>
+            <p class="text-muted mb-0">Manage pet profiles, review applications, and update adoption status.</p>
+          </div>
+          <button class="btn btn-outline-danger btn-sm" onclick="toggleAdminView()">
+            <i class="fa-solid fa-xmark me-1"></i> Close Admin
+          </button>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-md-3">
+            <div class="card p-3 rounded-4 shadow-sm border-0 text-center bg-white">
+              <h6 class="text-muted">Total Pets</h6>
+              <h2 class="text-dark fw-bold mb-0" id="kpiTotal">0</h2>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card p-3 rounded-4 shadow-sm border-0 text-center bg-white">
+              <h6 class="text-muted">Available</h6>
+              <h2 class="text-success fw-bold mb-0" id="kpiAvailable">0</h2>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card p-3 rounded-4 shadow-sm border-0 text-center bg-white">
+              <h6 class="text-muted">Adopted</h6>
+              <h2 class="text-secondary fw-bold mb-0" id="kpiAdopted">0</h2>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card p-3 rounded-4 shadow-sm border-0 text-center bg-white">
+              <h6 class="text-muted">Pending Apps</h6>
+              <h2 class="text-warning fw-bold mb-0" id="kpiPending">0</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manage Pets Table -->
+        <div class="card rounded-4 border-0 shadow-sm p-4 mb-4 bg-white">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0">Manage Pet Catalog</h4>
+            <button class="btn btn-success btn-sm rounded-pill" onclick="openAddPetModal()">
+              <i class="fa-solid fa-plus me-1"></i> Add New Pet
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr><th>Pet</th><th>Type</th><th>Breed</th><th>Age/Gender</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="adminPetsTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Applications Table -->
+        <div class="card rounded-4 border-0 shadow-sm p-4 bg-white">
+          <h4 class="mb-3">Adoption Applications</h4>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-light">
+                <tr><th>App ID</th><th>Pet</th><th>Applicant</th><th>Contact</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="adminAppsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About & Contact Section -->
+    <section class="py-5 bg-white border-top" id="about">
+      <div class="container-xxl">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-6">
+            <span class="text-success fw-bold text-uppercase small">About PawCare</span>
+            <h2 class="display-6 mt-1 mb-3">Saving Lives, One Adoption at a Time</h2>
+            <p class="text-secondary leading-relaxed">
+              The PawCare Pet Adoption System was founded to eliminate animal homelessness and encourage ethical adoption. We rescue injured, lost, and abandoned pets, provide veterinary healthcare, microchipping, and sterilization, and connect them with loving adopters.
+            </p>
+            <div class="row g-3 mt-2">
+              <div class="col-6">
+                <div class="p-3 bg-light rounded-3 border">
+                  <h5 class="fw-bold text-success mb-1">Ethical Adoption</h5>
+                  <p class="small text-muted mb-0">100% free adoptions with lifetime post-adoption guidance.</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="p-3 bg-light rounded-3 border">
+                  <h5 class="fw-bold text-success mb-1">Health Certified</h5>
+                  <p class="small text-muted mb-0">Full medical certificates and vaccination booklets.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6" id="contact">
+            <div class="card p-4 rounded-4 border-0 shadow-sm bg-light">
+              <h4 class="mb-3">Contact Sanctuary Support</h4>
+              <div class="mb-3">
+                <p class="mb-1"><i class="fa-solid fa-envelope text-success me-2"></i> <strong>Email:</strong> support@pawcare.com</p>
+                <p class="mb-1"><i class="fa-solid fa-phone text-success me-2"></i> <strong>Phone:</strong> +91 98765 43210</p>
+                <p class="mb-0"><i class="fa-solid fa-location-dot text-success me-2"></i> <strong>Location:</strong> Near Benz Circle, MG Road, Vijayawada, Andhra Pradesh</p>
+              </div>
+              <form onsubmit="event.preventDefault(); showToast('Message sent to sanctuary support!'); this.reset();">
+                <div class="row g-2">
+                  <div class="col-6"><input type="text" class="form-control" placeholder="Your Name" required></div>
+                  <div class="col-6"><input type="email" class="form-control" placeholder="Your Email" required></div>
+                  <div class="col-12"><textarea class="form-control" rows="3" placeholder="How can we help you?" required></textarea></div>
+                  <div class="col-12"><button class="btn btn-primary-green w-100 mt-2">Send Message</button></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center">
+      <div class="container-xxl">
+        <p class="mb-1">© 2026 PawCare Pet Adoption System. Built for responsible pet rescue.</p>
+        <small class="text-white-50">Vijayawada, Andhra Pradesh, India</small>
+      </div>
+    </footer>
+
+  </div><!-- /#mainAppScreen -->
+
+  <!-- Pet Details Modal -->
+  <div class="modal fade" id="petModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-0 bg-light">
+          <h5 class="modal-title fw-bold" id="mName">Pet Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="row g-4">
+            <div class="col-md-5">
+              <img id="mImg" src="" alt="Pet" class="img-fluid rounded-4 w-100 shadow-sm" style="max-height:300px;object-fit:cover;">
+            </div>
+            <div class="col-md-7">
+              <span class="badge bg-success mb-2" id="mStatus">Available</span>
+              <h3 id="mTitle" class="fw-bold mb-1"></h3>
+              <p class="text-muted small" id="mTypeBreed"></p>
+              <p id="mDesc" class="text-secondary small mb-3"></p>
+              <div class="bg-light p-3 rounded-3 mb-3 small">
+                <div><strong>Vaccination:</strong> <span id="mVacc"></span></div>
+                <div><strong>Health:</strong> <span id="mHealth"></span></div>
+                <div><strong>Personality:</strong> <span id="mPers"></span></div>
+              </div>
+              <button class="btn btn-primary-green w-100 rounded-pill" id="mAdoptBtn">Adopt This Pet</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Pet Modal -->
+  <div class="modal fade" id="addPetModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-0 bg-dark text-white">
+          <h5 class="modal-title fw-bold" id="addPetModalTitle">Add New Pet</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="savePetForm" onsubmit="handleSavePet(event)">
+          <div class="modal-body p-4">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label small fw-bold">Name</label><input type="text" class="form-control" id="pName" required></div>
+              <div class="col-md-3"><label class="form-label small fw-bold">Type</label><select class="form-select" id="pType"><option value="Dog">Dog</option><option value="Cat">Cat</option><option value="Rabbit">Rabbit</option></select></div>
+              <div class="col-md-3"><label class="form-label small fw-bold">Breed</label><input type="text" class="form-control" id="pBreed" required></div>
+              <div class="col-md-3"><label class="form-label small fw-bold">Age</label><input type="text" class="form-control" id="pAge" placeholder="e.g. 2 years" required></div>
+              <div class="col-md-3"><label class="form-label small fw-bold">Gender</label><select class="form-select" id="pGender"><option value="Male">Male</option><option value="Female">Female</option></select></div>
+              <div class="col-md-3"><label class="form-label small fw-bold">City</label><input type="text" class="form-control" id="pLoc" value="Vijayawada" required></div>
+              <div class="col-md-3"><label class="form-label small fw-bold">Status</label><select class="form-select" id="pStatus"><option value="Available">Available</option><option value="Pending">Pending</option><option value="Adopted">Adopted</option></select></div>
+              <div class="col-12"><label class="form-label small fw-bold">Image URL</label><input type="url" class="form-control" id="pImg" required></div>
+              <div class="col-12"><label class="form-label small fw-bold">Description</label><textarea class="form-control" id="pDesc" rows="2"></textarea></div>
+            </div>
+          </div>
+          <div class="modal-footer bg-light border-0">
+            <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-success rounded-pill px-4">Save Pet</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Complete Application JavaScript -->
+  <script>
+    const INITIAL_PETS = [
+      { id: "1", name: "Bruno", type: "Dog", breed: "Labrador", age: "2 years", gender: "Male", location: "Vijayawada", status: "Available", image: "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=600&q=80", vaccination: "Full (Rabies, DHPP)", health: "Healthy & Neutered", personality: "Playful, Loving", description: "Bruno is a sweet yellow lab who loves fetch, swimming, and cuddles." },
+      { id: "2", name: "Luna", type: "Cat", breed: "Persian", age: "1 year", gender: "Female", location: "Guntur", status: "Available", image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80", vaccination: "Vaccinated & Dewormed", health: "Spayed, clean coat", personality: "Calm, Regal", description: "Luna adores sunny windowsills and gentle brushings." },
+      { id: "3", name: "Max", type: "Dog", breed: "Golden Retriever", age: "3 years", gender: "Male", location: "Vijayawada", status: "Available", image: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80", vaccination: "Up to Date", health: "Neutered, Athletic", personality: "Obedient, Social", description: "Max is wonderfully trained and friendly with all animals." },
+      { id: "4", name: "Bella", type: "Dog", breed: "Beagle", age: "2 years", gender: "Female", location: "Vijayawada", status: "Available", image: "https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&w=600&q=80", vaccination: "Up to Date", health: "Spayed, Healthy", personality: "Curious, Alert", description: "Bella loves outdoor scent walks and cozy blankets." },
+      { id: "5", name: "Milo", type: "Cat", breed: "Domestic Shorthair", age: "1 year", gender: "Male", location: "Vijayawada", status: "Available", image: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=600&q=80", vaccination: "Vaccinated", health: "Indoor healthy", personality: "Acrobatic, Inquisitive", description: "Milo is a vibrant ginger tabby who loves feather toys." },
+      { id: "6", name: "Coco", type: "Rabbit", breed: "Netherland Dwarf", age: "1 year", gender: "Female", location: "Vijayawada", status: "Available", image: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&w=600&q=80", vaccination: "RHDV2 Complete", health: "Healthy teeth", personality: "Docile, Quiet", description: "Coco enjoys fresh timothy hay and gentle handling." },
+      { id: "7", name: "Rocky", type: "Dog", breed: "German Shepherd", age: "4 years", gender: "Male", location: "Vijayawada", status: "Available", image: "https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?auto=format&fit=crop&w=600&q=80", vaccination: "Fully Immunized", health: "Neutered, High Stamina", personality: "Protective, Smart", description: "Rocky is a noble shepherd looking for an active handler." },
+      { id: "8", name: "Daisy", type: "Dog", breed: "Indie Dog", age: "2 years", gender: "Female", location: "Vijayawada", status: "Available", image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80", vaccination: "ABC & Rabies Done", health: "High immunity, Spayed", personality: "Gentle, Extremely Smart", description: "Daisy is a loyal rescued Indian hound ready for a loving home." }
+    ];
+
+    let pets = JSON.parse(localStorage.getItem("pawcare_pets")) || INITIAL_PETS;
+    let apps = JSON.parse(localStorage.getItem("pawcare_apps")) || [];
+    let currentUser = null;
+
+    function save() {
+      localStorage.setItem("pawcare_pets", JSON.stringify(pets));
+      localStorage.setItem("pawcare_apps", JSON.stringify(apps));
+      render();
+    }
+
+    /* AUTHENTICATION & LOGIN FIRST LOGIC */
+    function checkInitialAuthState() {
+      const saved = localStorage.getItem("pawcare_current_user");
+      if (saved) {
+        try {
+          currentUser = JSON.parse(saved);
+          if (currentUser && currentUser.name) {
+            showMainApp();
+            return;
+          }
+        } catch (e) {}
+      }
+      showAuthScreen();
+    }
+
+    function showAuthScreen() {
+      document.getElementById("authScreen").classList.remove("d-none");
+      document.getElementById("mainAppScreen").classList.add("d-none");
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    function showMainApp() {
+      document.getElementById("authScreen").classList.add("d-none");
+      document.getElementById("mainAppScreen").classList.remove("d-none");
+      updateAuthUI();
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function handleMainLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById("mainLoginEmail").value.trim();
+      const pass = document.getElementById("mainLoginPassword").value;
+      if (!email || pass.length < 4) {
+        showToast("Please enter a valid email and password.", "danger");
+        return;
+      }
+      const isAdmin = email.toLowerCase().includes("admin");
+      currentUser = { name: isAdmin ? "Sanctuary Admin" : email.split("@")[0], email: email, role: isAdmin ? "admin" : "user" };
+      localStorage.setItem("pawcare_current_user", JSON.stringify(currentUser));
+      showMainApp();
+      showToast(`Welcome to PawCare, ${currentUser.name}!`);
+      if (isAdmin) toggleAdminView(true);
+    }
+
+    function handleMainRegisterSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById("mainRegName").value.trim();
+      const email = document.getElementById("mainRegEmail").value.trim();
+      const pass = document.getElementById("mainRegPass").value;
+      const confirm = document.getElementById("mainRegConfirmPass").value;
+      if (pass !== confirm) {
+        showToast("Passwords do not match.", "danger");
+        return;
+      }
+      currentUser = { name: name, email: email, role: "user" };
+      localStorage.setItem("pawcare_current_user", JSON.stringify(currentUser));
+      showMainApp();
+      showToast(`Account created! Welcome, ${name}!`);
+    }
+
+    function demoLoginUser() {
+      currentUser = { name: "Rahul Sharma", email: "rahul.sharma@example.com", role: "user" };
+      localStorage.setItem("pawcare_current_user", JSON.stringify(currentUser));
+      showMainApp();
+      showToast("Logged in as Demo Adopter: Rahul Sharma");
+    }
+
+    function demoLoginAdmin() {
+      currentUser = { name: "Sanctuary Admin", email: "admin@pawcare.com", role: "admin" };
+      localStorage.setItem("pawcare_current_user", JSON.stringify(currentUser));
+      showMainApp();
+      toggleAdminView(true);
+      showToast("Logged in as Sanctuary Admin");
+    }
+
+    function continueAsGuest() {
+      currentUser = { name: "Guest Visitor", email: "guest@pawcare.com", role: "guest" };
+      localStorage.setItem("pawcare_current_user", JSON.stringify(currentUser));
+      showMainApp();
+      showToast("Continuing as Guest Visitor");
+    }
+
+    function logoutToLoginPage() {
+      localStorage.removeItem("pawcare_current_user");
+      currentUser = null;
+      toggleAdminView(false);
+      showAuthScreen();
+      showToast("You have been signed out.");
+    }
+
+    function updateAuthUI() {
+      const container = document.getElementById("userAuthContainer");
+      if (!container) return;
+      if (currentUser) {
+        container.innerHTML = `
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">
+              <i class="fa-solid fa-circle-user text-success me-1"></i> ${currentUser.name} (${currentUser.role})
+            </span>
+            <button class="btn btn-outline-danger btn-sm rounded-pill px-3" onclick="logoutToLoginPage()" title="Sign Out">
+              <i class="fa-solid fa-arrow-right-from-bracket me-1"></i> Logout
+            </button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `<button class="btn btn-primary-green btn-sm rounded-pill px-3" onclick="showAuthScreen()">Sign In</button>`;
+      }
+    }
+
+    /* RENDERING & FILTERS */
+    function render() {
+      renderCards();
+      renderDropdown();
+      renderAdmin();
+      const countEl = document.getElementById("statAvailable");
+      if (countEl) countEl.textContent = pets.filter(p => p.status === 'Available').length;
+    }
+
+    function renderCards() {
+      const search = (document.getElementById("searchInput")?.value || "").toLowerCase();
+      const type = document.getElementById("typeFilter")?.value || "";
+      const breed = (document.getElementById("breedFilter")?.value || "").toLowerCase();
+      const gender = document.getElementById("genderFilter")?.value || "";
+
+      const filtered = pets.filter(p => {
+        if (search && !p.name.toLowerCase().includes(search) && !p.breed.toLowerCase().includes(search) && !p.location.toLowerCase().includes(search)) return false;
+        if (type && p.type !== type) return false;
+        if (breed && !p.breed.toLowerCase().includes(breed)) return false;
+        if (gender && p.gender !== gender) return false;
+        return true;
+      });
+
+      const container = document.getElementById("availablePetsContainer");
+      if (!container) return;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="col-12 text-center py-5 text-muted"><h5>No pets match your criteria. Try resetting filters.</h5></div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => `
+        <div class="col-md-6 col-lg-3">
+          <div class="pet-card">
+            <div class="pet-img-container">
+              <img src="${p.image}" class="pet-card-img" alt="${p.name}">
+              <span class="pet-status-badge ${p.status === 'Available' ? 'status-available' : (p.status === 'Pending' ? 'status-pending' : 'status-adopted')}">${p.status}</span>
+              <button class="pet-favorite-btn" onclick="toggleFav('${p.id}', this)"><i class="fa-solid fa-heart"></i></button>
+            </div>
+            <div class="p-3 d-flex flex-column flex-grow-1">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <h4 class="mb-0 fs-5">${p.name}</h4>
+                <span class="badge bg-light text-dark border">${p.type}</span>
+              </div>
+              <div class="small text-muted mb-2"><i class="fa-solid fa-paw text-success me-1"></i>${p.breed}</div>
+              <div class="pet-specs-grid">
+                <div><span class="d-block text-muted" style="font-size:0.7rem">AGE</span><strong>${p.age}</strong></div>
+                <div><span class="d-block text-muted" style="font-size:0.7rem">GENDER</span><strong>${p.gender}</strong></div>
+                <div><span class="d-block text-muted" style="font-size:0.7rem">CITY</span><strong>${p.location}</strong></div>
+              </div>
+              <div class="mt-auto d-flex gap-2">
+                <button class="btn btn-outline-green btn-sm flex-fill" onclick="viewDetails('${p.id}')">Details</button>
+                <button class="btn btn-primary-green btn-sm flex-fill ${p.status === 'Adopted' ? 'disabled' : ''}" onclick="selectForAdoption('${p.id}')">Adopt Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function toggleFav(id, btn) {
+      btn.classList.toggle("favorited");
+      showToast(btn.classList.contains("favorited") ? "Added to Wishlist!" : "Removed from Wishlist", "info");
+    }
+
+    function renderDropdown() {
+      const select = document.getElementById("formPetSelect");
+      if (!select) return;
+      select.innerHTML = '<option value="">-- Choose Pet --</option>' + pets.map(p => 
+        `<option value="${p.id}" ${p.status === 'Adopted' ? 'disabled' : ''}>${p.name} (${p.breed} - ${p.status})</option>`
+      ).join("");
+    }
+
+    function viewDetails(id) {
+      const p = pets.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById("mName").textContent = p.name;
+      document.getElementById("mTitle").textContent = p.name;
+      document.getElementById("mTypeBreed").textContent = `${p.type} • ${p.breed} • ${p.age} • ${p.gender}`;
+      document.getElementById("mDesc").textContent = p.description;
+      document.getElementById("mVacc").textContent = p.vaccination;
+      document.getElementById("mHealth").textContent = p.health;
+      document.getElementById("mPers").textContent = p.personality;
+      document.getElementById("mImg").src = p.image;
+      document.getElementById("mStatus").textContent = p.status;
+      document.getElementById("mAdoptBtn").onclick = () => {
+        bootstrap.Modal.getInstance(document.getElementById("petModal")).hide();
+        selectForAdoption(p.id);
+      };
+      new bootstrap.Modal(document.getElementById("petModal")).show();
+    }
+
+    function selectForAdoption(id) {
+      document.getElementById("formPetSelect").value = id;
+      document.getElementById("adoption-form-section").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function handleAdoptionSubmit(e) {
+      e.preventDefault();
+      const petId = document.getElementById("formPetSelect").value;
+      const pet = pets.find(p => p.id === petId);
+
+      const app = {
+        id: "APP-" + Math.floor(1000 + Math.random() * 9000),
+        petId: petId,
+        petName: pet ? pet.name : "Unspecified",
+        name: document.getElementById("formFullName").value,
+        email: document.getElementById("formEmail").value,
+        phone: document.getElementById("formPhone").value,
+        status: "Pending"
+      };
+
+      apps.unshift(app);
+      if (pet && pet.status === "Available") pet.status = "Pending";
+      save();
+
+      document.getElementById("petAdoptionForm").reset();
+      const alertBox = document.getElementById("adoptionSuccessAlert");
+      alertBox.classList.remove("d-none");
+      alertBox.scrollIntoView({ behavior: "smooth" });
+      showToast("Adoption application submitted successfully!");
+    }
+
+    function toggleAdminView(forceShow) {
+      const admin = document.getElementById("adminSection");
+      if (forceShow === true) {
+        admin.classList.remove("d-none");
+        admin.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+      admin.classList.toggle("d-none");
+      if (!admin.classList.contains("d-none")) {
+        admin.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    function renderAdmin() {
+      document.getElementById("kpiTotal").textContent = pets.length;
+      document.getElementById("kpiAvailable").textContent = pets.filter(p => p.status === 'Available').length;
+      document.getElementById("kpiAdopted").textContent = pets.filter(p => p.status === 'Adopted').length;
+      document.getElementById("kpiPending").textContent = apps.filter(a => a.status === 'Pending').length;
+
+      document.getElementById("adminPetsTable").innerHTML = pets.map(p => `
+        <tr>
+          <td><img src="${p.image}" width="36" height="36" class="rounded-circle me-2 object-fit-cover"><strong>${p.name}</strong></td>
+          <td>${p.type}</td><td>${p.breed}</td><td>${p.age} / ${p.gender}</td>
+          <td>
+            <select class="form-select form-select-sm" onchange="updatePetStatus('${p.id}', this.value)">
+              <option value="Available" ${p.status === 'Available' ? 'selected' : ''}>Available</option>
+              <option value="Pending" ${p.status === 'Pending' ? 'selected' : ''}>Pending</option>
+              <option value="Adopted" ${p.status === 'Adopted' ? 'selected' : ''}>Adopted</option>
+            </select>
+          </td>
+          <td>
+            <button class="btn btn-outline-danger btn-sm" onclick="deletePet('${p.id}')"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      `).join("");
+
+      document.getElementById("adminAppsTable").innerHTML = apps.length === 0 ? `<tr><td colspan="6" class="text-center text-muted">No applications received yet.</td></tr>` : apps.map(a => `
+        <tr>
+          <td><code>${a.id}</code></td><td><strong>${a.petName}</strong></td><td>${a.name}</td><td>${a.phone}</td>
+          <td><span class="badge ${a.status === 'Approved' ? 'bg-success' : (a.status === 'Pending' ? 'bg-warning text-dark' : 'bg-danger')}">${a.status}</span></td>
+          <td>
+            <button class="btn btn-success btn-sm me-1" onclick="setAppStatus('${a.id}', 'Approved')"><i class="fa-solid fa-check"></i></button>
+            <button class="btn btn-danger btn-sm" onclick="setAppStatus('${a.id}', 'Rejected')"><i class="fa-solid fa-xmark"></i></button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function updatePetStatus(id, val) {
+      const p = pets.find(x => x.id === id);
+      if (p) { p.status = val; save(); showToast(`Status updated to ${val}`); }
+    }
+
+    function deletePet(id) {
+      if (confirm("Delete this pet profile?")) {
+        pets = pets.filter(x => x.id !== id);
+        save();
+        showToast("Pet deleted from catalog", "info");
+      }
+    }
+
+    function setAppStatus(id, val) {
+      const a = apps.find(x => x.id === id);
+      if (a) {
+        a.status = val;
+        if (val === "Approved") {
+          const p = pets.find(x => x.id === a.petId);
+          if (p) p.status = "Adopted";
+        }
+        save();
+        showToast(`Application ${id} marked as ${val}`);
+      }
+    }
+
+    function openAddPetModal() {
+      document.getElementById("savePetForm").reset();
+      new bootstrap.Modal(document.getElementById("addPetModal")).show();
+    }
+
+    function handleSavePet(e) {
+      e.preventDefault();
+      const newPet = {
+        id: "pet-" + Date.now(),
+        name: document.getElementById("pName").value.trim(),
+        type: document.getElementById("pType").value,
+        breed: document.getElementById("pBreed").value.trim(),
+        age: document.getElementById("pAge").value.trim(),
+        gender: document.getElementById("pGender").value,
+        location: document.getElementById("pLoc").value.trim(),
+        status: document.getElementById("pStatus").value,
+        image: document.getElementById("pImg").value.trim(),
+        vaccination: "Complete",
+        health: "Healthy & Vet Examined",
+        personality: "Friendly",
+        description: document.getElementById("pDesc").value.trim()
+      };
+      pets.unshift(newPet);
+      save();
+      bootstrap.Modal.getInstance(document.getElementById("addPetModal")).hide();
+      showToast("New pet added to catalog!");
+    }
+
+    function resetFilters() {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("typeFilter").value = "";
+      document.getElementById("breedFilter").value = "";
+      document.getElementById("genderFilter").value = "";
+      renderCards();
+    }
+
+    function showToast(msg, type = "success") {
+      const toastEl = document.getElementById("actionToast");
+      const msgEl = document.getElementById("toastMessage");
+      msgEl.innerHTML = `<i class="fa-solid fa-${type === 'danger' ? 'circle-exclamation' : 'circle-check'} fs-5 me-2"></i> ${msg}`;
+      toastEl.className = `toast align-items-center text-white bg-${type === 'danger' ? 'danger' : (type === 'info' ? 'primary' : 'success')} border-0 shadow-lg`;
+      new bootstrap.Toast(toastEl, { delay: 3500 }).show();
+    }
+
+    /* INITIALIZATION */
+    document.addEventListener("DOMContentLoaded", () => {
+      checkInitialAuthState();
+      ["searchInput", "typeFilter", "breedFilter", "genderFilter"].forEach(id => {
+        document.getElementById(id)?.addEventListener("input", renderCards);
+        document.getElementById(id)?.addEventListener("change", renderCards);
+      });
+    });
+  </script>
+</body>
+</html>

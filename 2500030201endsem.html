@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup Form</title>
+</head>
+<body>
+
+<h2>Signup Form</h2>
+
+Name:
+<input type="text" id="name"><br><br>
+
+Email:
+<input type="email" id="email"><br><br>
+
+Password:
+<input type="password" id="password"><br><br>
+
+<button onclick="signup()">Sign Up</button>
+
+<script>
+function signup() {
+
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    if (name == "" || email == "" || password == "") {
+        alert("Please fill all fields");
+    }
+    else {
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+
+        alert("Signup Successful!");
+    }
+}
+</script>
+
+</body>
+</html>
